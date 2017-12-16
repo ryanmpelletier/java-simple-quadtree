@@ -1,0 +1,44 @@
+apply plugin: 'java'
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Use JUnit test framework
+    testCompile 'junit:junit:4.12'
+}
+
+
+//so just because I don't see something in my build.gradle doesn't mean it isn't available to me
+jar{
+	
+}
+
+
+task myTask {
+    dependsOn jar
+    
+
+    
+    
+    doFirst{
+        println "---------DO FIRST MY TASK------------"
+    }
+
+
+
+    doLast{
+        println "--------DO LAST MY TASK----------"
+        //this stuff is executed during the "configuration phase", whatever that means
+		def foundFile = files('test3.txt', 'test-dir/test.txt');
+		def otherFile = file('test3.txt');
+		
+		println project.getProperties().toString()
+
+    }
+}
+
+
+
