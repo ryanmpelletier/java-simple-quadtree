@@ -37,10 +37,10 @@ public class PerformanceReport {
 		}
 		
 		
-		System.out.println("***** Quadtree Summary *****");
-		System.out.println("Total Objects: " + quadTree.getTotalObjects());
-		System.out.println("Depth: " + quadTree.getDepth());
-		System.out.println("******************************************");
+//		System.out.println("***** Quadtree Summary *****");
+//		System.out.println("Total Objects: " + quadTree.getTotalObjects());
+//		System.out.println("Depth: " + quadTree.getDepth());
+//		System.out.println("******************************************");
 		
 		int numberOfObjectsQueriedFor = 0;
 		try {
@@ -54,20 +54,21 @@ public class PerformanceReport {
 						Double.parseDouble(lines.get(i).split(" ")[2]), Double.parseDouble(lines.get(i).split(" ")[3]));
 			}
 			
-			System.out.println("***** Beginning Searches *****");
-			long startMilliseconds = System.currentTimeMillis();
-			System.out.println("Time: "  + new Date(startMilliseconds));
+//			System.out.println("***** Beginning Searches *****");
+//			long startMilliseconds = System.currentTimeMillis();
+//			System.out.println("Time: "  + new Date(startMilliseconds));
 			
 			for(int i = 0; i < searchRectangleObjects.length; i++){
 				List<RectangleObject> items = quadTree.search(searchRectangleObjects[i]);
 				numberOfObjectsQueriedFor += items.size();
+				System.out.println((i + 1) + ". " + lines.get(i).split(" ")[0] + " " + lines.get(i).split(" ")[1] + " " + lines.get(i).split(" ")[2] + " " + lines.get(i).split(" ")[3] + " " + items.size());
 			}
 			long endMilliseconds = System.currentTimeMillis();
 
-			System.out.println("***** Searches Complete *****");
-			System.out.println("Total Searches: " + searchRectangleObjects.length);
-			System.out.println("Total Objects Queried For: " + numberOfObjectsQueriedFor);
-			System.out.println("Time Elapsed (millis): " + (endMilliseconds - startMilliseconds));
+//			System.out.println("***** Searches Complete *****");
+//			System.out.println("Total Searches: " + searchRectangleObjects.length);
+//			System.out.println("Total Objects Queried For: " + numberOfObjectsQueriedFor);
+//			System.out.println("Time Elapsed (millis): " + (endMilliseconds - startMilliseconds));
 			
 			
 		} catch (IOException e) {
