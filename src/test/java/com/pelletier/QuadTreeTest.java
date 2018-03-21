@@ -24,11 +24,11 @@ public class QuadTreeTest {
     public void testDefaultConstructor()
     {
         quadTree = new QuadTree();
-        assertEquals(new Integer(0), quadTree.getLevel());
-        assertEquals(new Integer(0), quadTree.getX());
-        assertEquals(new Integer(0), quadTree.getY());
-        assertEquals(new Integer(100), quadTree.getW());
-        assertEquals(new Integer(100), quadTree.getH());
+        assertEquals(Integer.valueOf(0), quadTree.getLevel());
+        assertEquals(Integer.valueOf(0), quadTree.getX());
+        assertEquals(Integer.valueOf(0), quadTree.getY());
+        assertEquals(Integer.valueOf(100), quadTree.getW());
+        assertEquals(Integer.valueOf(100), quadTree.getH());
         assertArrayEquals(new QuadTree[4], quadTree.getChildren());
         assertEquals(0, quadTree.getRectangleObjects().size());
     }
@@ -38,11 +38,11 @@ public class QuadTreeTest {
         quadTree = new QuadTree(2,4,1, 2, 3, 4, 5, null);
         assertEquals(2, quadTree.getMaxObjects());
         assertEquals(4, quadTree.getMaxLevels());
-        assertEquals(new Integer(1), quadTree.getLevel());
-        assertEquals(new Integer(2), quadTree.getX());
-        assertEquals(new Integer(3), quadTree.getY());
-        assertEquals(new Integer(4), quadTree.getW());
-        assertEquals(new Integer(5), quadTree.getH());
+        assertEquals(Integer.valueOf(1), quadTree.getLevel());
+        assertEquals(Integer.valueOf(2), quadTree.getX());
+        assertEquals(Integer.valueOf(3), quadTree.getY());
+        assertEquals(Integer.valueOf(4), quadTree.getW());
+        assertEquals(Integer.valueOf(5), quadTree.getH());
         assertArrayEquals(new QuadTree[4], quadTree.getChildren());
         assertEquals(0, quadTree.getRectangleObjects().size());
     }
@@ -51,7 +51,7 @@ public class QuadTreeTest {
     public void testInsertAnItem(){
         quadTree = new QuadTree();
         quadTree.insert(new SearchRectangleObject());
-        assertEquals(new Integer(1), new Integer(quadTree.getRectangleObjects().size()));
+        assertEquals(Integer.valueOf(1), Integer.valueOf(quadTree.getRectangleObjects().size()));
 
         //children are still null
         assertNull(quadTree.getChildren()[QuadTree.NE_CHILD]);
@@ -71,7 +71,7 @@ public class QuadTreeTest {
         quadTree.insert(new SearchRectangleObject());
 
         //5 items in tree
-        assertEquals(new Integer(5), new Integer(quadTree.getRectangleObjects().size()));
+        assertEquals(Integer.valueOf(5), Integer.valueOf(quadTree.getRectangleObjects().size()));
 
         //children are still null
         assertNull(quadTree.getChildren()[QuadTree.NE_CHILD]);
@@ -91,24 +91,23 @@ public class QuadTreeTest {
         quadTree.insert(new SearchRectangleObject(51.0,51.0,1.0,1.0));
 
         //no split has happened yet
-        assertEquals(new Integer(2), new Integer(quadTree.getRectangleObjects().size()));
+        assertEquals(Integer.valueOf(2), Integer.valueOf(quadTree.getRectangleObjects().size()));
 
         quadTree.insert(new SearchRectangleObject(51.0,1.0,1.0,1.0));
 
         //split happened, root should not hold any objects
-        assertEquals(new Integer(0), new Integer(quadTree.getRectangleObjects().size()));
+        assertEquals(Integer.valueOf(0), Integer.valueOf(quadTree.getRectangleObjects().size()));
 
         //NW quadrant has 1 object, SE quadrant also has one object, NE has one object, SW still has 0
-        assertEquals(new Integer(1), new Integer(quadTree.getChildren()[QuadTree.NW_CHILD].getRectangleObjects().size()));
-        assertEquals(new Integer(1), new Integer(quadTree.getChildren()[QuadTree.SE_CHILD].getRectangleObjects().size()));
-        assertEquals(new Integer(1), new Integer(quadTree.getChildren()[QuadTree.NE_CHILD].getRectangleObjects().size()));
-        assertEquals(new Integer(0), new Integer(quadTree.getChildren()[QuadTree.SW_CHILD].getRectangleObjects().size()));
+        assertEquals(Integer.valueOf(1), Integer.valueOf(quadTree.getChildren()[QuadTree.NW_CHILD].getRectangleObjects().size()));
+        assertEquals(Integer.valueOf(1), Integer.valueOf(quadTree.getChildren()[QuadTree.SE_CHILD].getRectangleObjects().size()));
+        assertEquals(Integer.valueOf(1), Integer.valueOf(quadTree.getChildren()[QuadTree.NE_CHILD].getRectangleObjects().size()));
+        assertEquals(Integer.valueOf(0), Integer.valueOf(quadTree.getChildren()[QuadTree.SW_CHILD].getRectangleObjects().size()));
 
         //insert one that should go to SW
         quadTree.insert(new SearchRectangleObject(1.0,51.0,1.0,1.0));
-        assertEquals(new Integer(1), new Integer(quadTree.getChildren()[QuadTree.SW_CHILD].getRectangleObjects().size()));
+        assertEquals(Integer.valueOf(1), Integer.valueOf(quadTree.getChildren()[QuadTree.SW_CHILD].getRectangleObjects().size()));
     }
-
 
     //TODO: bad practice to use anything random in unit tests (or is it good practice?)
     public void testCountTotalObjects(){
@@ -118,13 +117,13 @@ public class QuadTreeTest {
         for(int i = 0; i < 10; i++){
             quadTree.insert(new SearchRectangleObject(Math.random() * 100, Math.random() * 100, 1.0, 1.0));
         }
-        assertEquals(new Integer(10), quadTree.getTotalObjects());
+        assertEquals(Integer.valueOf(10), quadTree.getTotalObjects());
 
         for(int i = 0; i < 5; i++){
             quadTree.insert(new SearchRectangleObject(Math.random() * 100, Math.random() * 100, 1.0, 1.0));
         }
 
-        assertEquals(new Integer(15), quadTree.getTotalObjects());
+        assertEquals(Integer.valueOf(15), quadTree.getTotalObjects());
 
     }
 
@@ -137,23 +136,23 @@ public class QuadTreeTest {
         //insert one object into NW
         quadTree.insert(new SearchRectangleObject(0.0,0.0,1.0,1.0));
 
-        assertEquals(new Integer(1), quadTree.getDepth());
+        assertEquals(Integer.valueOf(1), quadTree.getDepth());
 
         //insert another object SE
         quadTree.insert(new SearchRectangleObject(51.0,51.0,1.0,1.0));
-        assertEquals(new Integer(1), quadTree.getDepth());
+        assertEquals(Integer.valueOf(1), quadTree.getDepth());
 
         //insert a 3rd object into NE
         quadTree.insert(new SearchRectangleObject(51.0,0.0,1.0,1.0));
-        assertEquals(new Integer(2), quadTree.getDepth());
+        assertEquals(Integer.valueOf(2), quadTree.getDepth());
 
         //now lets add a few more into the NW
         quadTree.insert(new SearchRectangleObject(26.0,26.0,1.0,1.0));
-        assertEquals(new Integer(2), quadTree.getDepth());
+        assertEquals(Integer.valueOf(2), quadTree.getDepth());
 
         //another split occurs on this insert
         quadTree.insert(new SearchRectangleObject(26.0,0.0,1.0,1.0));
-        assertEquals(new Integer(3), quadTree.getDepth());
+        assertEquals(Integer.valueOf(3), quadTree.getDepth());
 
     }
 
@@ -164,11 +163,11 @@ public class QuadTreeTest {
         for(int i = 0; i < 10; i++){
             quadTree.insert(new SearchRectangleObject(Math.random() * 100, Math.random() * 100, 1.0, 1.0));
         }
-        assertEquals(new Integer(10), quadTree.getTotalObjects());
+        assertEquals(Integer.valueOf(10), quadTree.getTotalObjects());
 
         quadTree.clear();
 
-        assertEquals(new Integer(0), quadTree.getTotalObjects());
+        assertEquals(Integer.valueOf(0), quadTree.getTotalObjects());
         assertNull(quadTree.getChildren()[QuadTree.NE_CHILD]);
         assertNull(quadTree.getChildren()[QuadTree.NW_CHILD]);
         assertNull(quadTree.getChildren()[QuadTree.SW_CHILD]);
@@ -240,9 +239,13 @@ public class QuadTreeTest {
         assertEquals(5, results.size());
 
 
-        //test where search area is along the border of an object in the quadtree
-        results = quadTree.search(new SearchRectangleObject(27.0, 26.0, 1.0, 1.0));
+        //test search area fits perfectly in child of quadtree that has the item it should hit
+        results = quadTree.search(new SearchRectangleObject(23.0, 23.0, 1.5, 1.5));
         assertEquals(1, results.size());
+
+        //test where search area is along the border of an object in the quadtree
+        results = quadTree.search(new SearchRectangleObject(27.0, 26.0 , 1.0, 1.0));
+        assertEquals(2, results.size());
 
         //test where search area is along the border of 2 objects in different levels of the quadtree
         results = quadTree.search(new SearchRectangleObject(1.0, 0.0, 23.0, 30.0));
@@ -250,8 +253,7 @@ public class QuadTreeTest {
 
         //test where search area is along the border of 2 objects in the same level of the quadtree
         results = quadTree.search(new SearchRectangleObject(27.0, 27.0, 1.0, 1.0));
-        assertEquals(2, results.size());
-
+        assertEquals(3, results.size());
     }
 
 
@@ -271,19 +273,19 @@ public class QuadTreeTest {
 
         quadTree.insert(new SearchRectangleObject(24.0, 24.0, 4.0, 4.0, "7"));
 
-        assertEquals(new Integer(3), quadTree.getDepth());
-        assertEquals(new Integer(7), quadTree.getTotalObjects());
+        assertEquals(Integer.valueOf(3), quadTree.getDepth());
+        assertEquals(Integer.valueOf(7), quadTree.getTotalObjects());
 
 
         //remove an object that is in the quadtree
         RectangleObject rectangleObject = quadTree.remove(new SearchRectangleObject(0.0, 0.0, 1.0, 1.0, "1"));
-        assertEquals(new Double(0.0), rectangleObject.getX());
-        assertEquals(new Double(0.0), rectangleObject.getY());
-        assertEquals(new Double(1.0), rectangleObject.getW());
-        assertEquals(new Double(1.0), rectangleObject.getH());
+        assertEquals(Double.valueOf(0.0), rectangleObject.getX());
+        assertEquals(Double.valueOf(0.0), rectangleObject.getY());
+        assertEquals(Double.valueOf(1.0), rectangleObject.getW());
+        assertEquals(Double.valueOf(1.0), rectangleObject.getH());
         assertEquals("1", rectangleObject.getId());
 
-        assertEquals(new Integer(6), quadTree.getTotalObjects());
+        assertEquals(Integer.valueOf(6), quadTree.getTotalObjects());
 
         //remove an object that is not in the quadtree
         rectangleObject = quadTree.remove(new SearchRectangleObject(0.0, 0.0, 1.0, 1.0, "1"));
@@ -291,10 +293,10 @@ public class QuadTreeTest {
 
         //remove an object that is over a boundary
         rectangleObject = quadTree.remove(new SearchRectangleObject(24.0, 24.0, 4.0, 4.0, "7"));
-        assertEquals(new Double(24.0), rectangleObject.getX());
-        assertEquals(new Double(24.0), rectangleObject.getY());
-        assertEquals(new Double(4.0), rectangleObject.getW());
-        assertEquals(new Double(4.0), rectangleObject.getH());
+        assertEquals(Double.valueOf(24.0), rectangleObject.getX());
+        assertEquals(Double.valueOf(24.0), rectangleObject.getY());
+        assertEquals(Double.valueOf(4.0), rectangleObject.getW());
+        assertEquals(Double.valueOf(4.0), rectangleObject.getH());
         assertEquals("7", rectangleObject.getId());
 
         //remove the rest of the objects
@@ -306,10 +308,10 @@ public class QuadTreeTest {
         quadTree.remove(new SearchRectangleObject(28.0, 28.0, 1.0, 1.0, "6"));
 
         //verify that the quadtree is empty
-        assertEquals(new Integer(0), quadTree.getTotalObjects());
+        assertEquals(Integer.valueOf(0), quadTree.getTotalObjects());
 
         //verify that the quadtree still has the original depth
-        assertEquals(new Integer(3), quadTree.getDepth());
+        assertEquals(Integer.valueOf(3), quadTree.getDepth());
 
     }
     
@@ -329,18 +331,18 @@ public class QuadTreeTest {
         
         //test updating non-existing item in quadTree, make sure no items were added
         quadTree.update(new SearchRectangleObject(5.0, 5.0, 5.0, 5.0, "test"), new SearchRectangleObject(25.0, 35.0, 5.0, 5.0, "test"));
-        assertEquals(new Integer(7), quadTree.getTotalObjects());
+        assertEquals(Integer.valueOf(7), quadTree.getTotalObjects());
         assertEquals(0,quadTree.search(new SearchRectangleObject(5.0, 5.0, 5.0, 5.0, "test")).size());
         assertEquals(0,quadTree.search(new SearchRectangleObject(25.0, 35.0, 5.0, 5.0, "test")).size());
         
         
         //test moving item out of quadtree
         quadTree.update(new SearchRectangleObject(28.0, 28.0, 1.0, 1.0, "6"), new SearchRectangleObject(100.0, 100.0, 1.0, 1.0, "6"));
-        assertEquals(new Integer(6), quadTree.getTotalObjects());
+        assertEquals(Integer.valueOf(6), quadTree.getTotalObjects());
         
         //test moving item to outside border of quadtree
         quadTree.update(new SearchRectangleObject(26.0, 26.0, 1.0, 1.0, "4"), new SearchRectangleObject(-.5, 0.5, 1.0, 1.0, "4"));
-        assertEquals(new Integer(5), quadTree.getTotalObjects());
+        assertEquals(Integer.valueOf(5), quadTree.getTotalObjects());
 
         
         //test move object without crossing QuadTree boundaries
@@ -349,10 +351,10 @@ public class QuadTreeTest {
         List<RectangleObject> results = quadTree.getChildren()[QuadTree.NW_CHILD].getChildren()[QuadTree.NW_CHILD].getRectangleObjects();
         assertEquals(1, results.size());
         RectangleObject rectangleObject = results.get(0);
-        assertEquals(new Double(1.0), rectangleObject.getX());
-        assertEquals(new Double(1.0), rectangleObject.getY());
-        assertEquals(new Double(1.0), rectangleObject.getW());
-        assertEquals(new Double(1.0), rectangleObject.getH());
+        assertEquals(Double.valueOf(1.0), rectangleObject.getX());
+        assertEquals(Double.valueOf(1.0), rectangleObject.getY());
+        assertEquals(Double.valueOf(1.0), rectangleObject.getW());
+        assertEquals(Double.valueOf(1.0), rectangleObject.getH());
         assertEquals("1", rectangleObject.getId());
         
         //test move object across boundary back to root quadTree
@@ -365,10 +367,10 @@ public class QuadTreeTest {
         results = quadTree.getChildren()[QuadTree.NW_CHILD].getChildren()[QuadTree.SW_CHILD].getRectangleObjects();
         assertEquals(1, results.size());
         rectangleObject = results.get(0);
-        assertEquals(new Double(2.0), rectangleObject.getX());
-        assertEquals(new Double(30.0), rectangleObject.getY());
-        assertEquals(new Double(4.0), rectangleObject.getW());
-        assertEquals(new Double(4.0), rectangleObject.getH());
+        assertEquals(Double.valueOf(2.0), rectangleObject.getX());
+        assertEquals(Double.valueOf(30.0), rectangleObject.getY());
+        assertEquals(Double.valueOf(4.0), rectangleObject.getW());
+        assertEquals(Double.valueOf(4.0), rectangleObject.getH());
         
         //test moving object onto border of QuadTree
         results = quadTree.getRectangleObjects();
@@ -377,10 +379,10 @@ public class QuadTreeTest {
         results = quadTree.getRectangleObjects();
         assertEquals(1, results.size());
         rectangleObject = results.get(0);
-        assertEquals(new Double(2.0), rectangleObject.getX());
-        assertEquals(new Double(48.0), rectangleObject.getY());
-        assertEquals(new Double(4.0), rectangleObject.getW());
-        assertEquals(new Double(4.0), rectangleObject.getH());
+        assertEquals(Double.valueOf(2.0), rectangleObject.getX());
+        assertEquals(Double.valueOf(48.0), rectangleObject.getY());
+        assertEquals(Double.valueOf(4.0), rectangleObject.getW());
+        assertEquals(Double.valueOf(4.0), rectangleObject.getH());
     }
     
     //TODO should probably just make an inner class to this called MockRectangleObject that will have helpful constructors
