@@ -4,3 +4,7 @@
 .gradle
 bin
 build
+out
+.idea
+*.iml
+.idea

@@ -142,15 +142,15 @@ public class QuadTree {
             	rectangleObjectToUpdate.setH(updatedRectangleObject.getH());
             	
             	//if the updated properties still lie in this quadtree, just add the object to the list
-            	if(GeometryUtil.rectangleObjectIsInside(new SearchRectangleObject(new Double(quadTree.getX()), new Double(quadTree.getY()), new Double(quadTree.getW()), new Double(quadTree.getH())),updatedRectangleObject)){
+            	if(GeometryUtil.rectangleObjectIsInside(new SearchRectangleObject(Double.valueOf(quadTree.getX()), Double.valueOf(quadTree.getY()), Double.valueOf(quadTree.getW()), Double.valueOf(quadTree.getH())),updatedRectangleObject)){
             		quadTree.insert(rectangleObjectToUpdate);
             	}else{ //start looking back up the quadtree starting with this ones parent
             		quadTree = quadTree.getParent();
-            		while(quadTree.getParent() != null && !GeometryUtil.rectangleObjectIsInside(new SearchRectangleObject(new Double(quadTree.getX()), new Double(quadTree.getY()), new Double(quadTree.getW()), new Double(quadTree.getH())), rectangleObjectToUpdate)){
+            		while(quadTree.getParent() != null && !GeometryUtil.rectangleObjectIsInside(new SearchRectangleObject(Double.valueOf(quadTree.getX()), Double.valueOf(quadTree.getY()), Double.valueOf(quadTree.getW()), Double.valueOf(quadTree.getH())), rectangleObjectToUpdate)){
             			quadTree = quadTree.getParent();
             		}
             		//only insert if it actually fits in the quadtree I am on
-            		if(GeometryUtil.rectangleObjectIsInside(new SearchRectangleObject(new Double(quadTree.getX()), new Double(quadTree.getY()), new Double(quadTree.getW()), new Double(quadTree.getH())), rectangleObjectToUpdate)){
+            		if(GeometryUtil.rectangleObjectIsInside(new SearchRectangleObject(Double.valueOf(quadTree.getX()), Double.valueOf(quadTree.getY()), Double.valueOf(quadTree.getW()), Double.valueOf(quadTree.getH())), rectangleObjectToUpdate)){
                 		quadTree.insert(rectangleObjectToUpdate);
             		}
             		
@@ -203,15 +203,15 @@ public class QuadTree {
 
     private List<RectangleObject> search(List<RectangleObject> rectangleObjects, SearchRectangleObject searchRectangleObject){
 
+        rectangleObjects.addAll(this.rectangleObjects);
 
         int index = getChildIndexRectangleBelongsIn(searchRectangleObject);
         //if the search area does not fit into any of the children perfectly
         if(index == QuadTree.THIS_QUADTREE || this.children[0] == null){
             //add anything that is on this QuadTree, may need to recurse down and add more
-            rectangleObjects.addAll(this.rectangleObjects);
             if(this.children[0] != null){
-                //now we split our search area on the QuadTree's midpoint into multiple areas to search, and pass them to the children
-                List<SearchRectangleObject> splitSearchAreas = searchRectangleObject.split(new Double(this.children[QuadTree.SE_CHILD].x), new Double(this.children[QuadTree.SE_CHILD].y));
+                //now we split our search area on the QuadTree's midpoint into multiple areas to search, and pass them to the children (TODO: do I really need to split??)
+                List<SearchRectangleObject> splitSearchAreas = searchRectangleObject.split(Double.valueOf(this.children[QuadTree.SE_CHILD].x), Double.valueOf(this.children[QuadTree.SE_CHILD].y));
                 for(int i = 0; i < splitSearchAreas.size(); i++){
                     //if the search area is not null, search the corresponding child with that area
                     if(splitSearchAreas.get(i) != null){
@@ -220,9 +220,9 @@ public class QuadTree {
                 }
             }
         }else if(this.children[index] != null){
+            //search area is in one of the children totally, but we still can't exclude the objects on this node, because that search area could include one
             this.children[index].search(rectangleObjects, searchRectangleObject);
         }
-
         return rectangleObjects;
     }
 
@@ -239,7 +239,6 @@ public class QuadTree {
         children[QuadTree.SE_CHILD] = new QuadTree(this.maxObjects, this.maxLevels,this.level + 1, this.x + childWidth, this.y + childHeight, childWidth, childHeight, this);
     }
     
-    //TODO check to see if this should be public/private/protected
     protected int getChildIndexRectangleBelongsIn(RectangleObject rectangleObject){
         //-1 means the object does not fit in any of the children, keep it on the parent
         int index = -1;
