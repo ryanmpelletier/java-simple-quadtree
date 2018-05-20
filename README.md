@@ -50,11 +50,11 @@ QuadTree quadTree = new QuadTree();
 
 /**
 * Insert some items that implement the RectangleObject interface.
-* For demonstration, I will pretend there is a MockRectangleObject implementation of the RectangleObject interface. We will
-* use this to demonstrate the QuadTree functions.
+* For demonstration, I will pretend there is a MockRectangleObject implementation of the 
+* RectangleObject interface. We will use this to demonstrate the QuadTree functions.
 * You can easily implement the interface and insert your own objects. 
-* For example, if you were making a game you would make an implementation for each of your game's objects that needed to be in 
-* the QuadTree. 
+* For example, if you were making a game you would make an implementation for each of your game's 
+* objects that needed to be in the QuadTree. 
 */
 
 quadTree.insert(new MockRectangleObject(5.0, 5.0, 10.0, 10.0));
