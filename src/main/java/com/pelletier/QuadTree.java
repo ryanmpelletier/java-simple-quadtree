@@ -7,16 +7,15 @@ import com.pelletier.geometry.GeometryUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
-//TODO limit use of SearchRectangleObject, also consider refactoring split method into Utility class and getting rid of SRO
 //TODO limit recursion
 
 public class QuadTree {
 
-    public static final int THIS_QUADTREE = -1;
-    public static final int NE_CHILD = 0;
-    public static final int NW_CHILD = 1;
-    public static final int SW_CHILD = 2;
-    public static final int SE_CHILD = 3;
+    protected static final int THIS_QUADTREE = -1;
+    protected static final int NE_CHILD = 0;
+    protected static final int NW_CHILD = 1;
+    protected static final int SW_CHILD = 2;
+    protected static final int SE_CHILD = 3;
 
     //config
     private int maxObjects = 10;

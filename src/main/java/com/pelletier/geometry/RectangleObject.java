@@ -1,6 +1,8 @@
 package com.pelletier.geometry;
 
-//setters in one, getters in another
+/**
+ *  Objects inserted into the QuadTree must implement this interface
+ */
 public interface RectangleObject {
 
     public String getId();
