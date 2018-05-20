@@ -330,7 +330,7 @@ public class QuadTreeTest {
         quadTree.insert(new SearchRectangleObject(24.0, 24.0, 4.0, 4.0, "7"));
         
         //test updating non-existing item in quadTree, make sure no items were added
-        quadTree.update(new SearchRectangleObject(5.0, 5.0, 5.0, 5.0, "test"), new SearchRectangleObject(25.0, 35.0, 5.0, 5.0, "test"));
+        quadTree.update(new SearchRectangleObject(5.0, 5.0, 5.0, 5.0, "test"), new SearchRectangleObject(25.0, 35.0, 5.0, 5.0));
         assertEquals(Integer.valueOf(7), quadTree.getTotalObjects());
         assertEquals(0,quadTree.search(new SearchRectangleObject(5.0, 5.0, 5.0, 5.0, "test")).size());
         assertEquals(0,quadTree.search(new SearchRectangleObject(25.0, 35.0, 5.0, 5.0, "test")).size());

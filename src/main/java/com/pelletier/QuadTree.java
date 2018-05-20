@@ -210,12 +210,10 @@ public class QuadTree {
         if(index == QuadTree.THIS_QUADTREE || this.children[0] == null){
             //add anything that is on this QuadTree, may need to recurse down and add more
             if(this.children[0] != null){
-                //now we split our search area on the QuadTree's midpoint into multiple areas to search, and pass them to the children (TODO: do I really need to split??)
-                List<SearchRectangleObject> splitSearchAreas = searchRectangleObject.split(Double.valueOf(this.children[QuadTree.SE_CHILD].x), Double.valueOf(this.children[QuadTree.SE_CHILD].y));
-                for(int i = 0; i < splitSearchAreas.size(); i++){
-                    //if the search area is not null, search the corresponding child with that area
-                    if(splitSearchAreas.get(i) != null){
-                        this.children[i].search(rectangleObjects, splitSearchAreas.get(i));
+                //for each of the children, if the search area overlaps with the child area, search the child
+                for(int i = 0; i < this.children.length; i++){
+                    if(GeometryUtil.rectangleObjectsOverlap(new SearchRectangleObject(Double.valueOf(this.children[i].getX()), Double.valueOf(this.children[i].getY()),Double.valueOf(this.children[i].getW()), Double.valueOf(this.children[i].getH())), searchRectangleObject)){
+                        this.children[i].search(rectangleObjects, searchRectangleObject);
                     }
                 }
             }
