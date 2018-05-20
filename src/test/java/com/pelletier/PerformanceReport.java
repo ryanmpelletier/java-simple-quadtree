@@ -141,6 +141,8 @@ public class PerformanceReport {
             System.out.println("Average Query Time: " + ((float)boxTotalQueryTime / (float)searchRectangleObjects.length));
             System.out.println("\n");
 
+            assert boxTotalObjectsQueriedFor == quadTreeTotalObjectsQueriedFor;
+
 
 
 		} catch (IOException e) {

@@ -160,15 +160,15 @@ public class QuadTree {
         }
     }
 
-    public List<RectangleObject> search(SearchRectangleObject searchRectangleObject){
+    public List<RectangleObject> search(RectangleObject rectangleObject){
 
         List<RectangleObject> returnList = new ArrayList<>();
         //here I will need to filter through these and only return the objects that are in the search area (even if they are partially in the search area)
-        ListIterator<RectangleObject> iterator = search(new ArrayList<RectangleObject>(), searchRectangleObject).listIterator();
+        ListIterator<RectangleObject> iterator = search(new ArrayList<RectangleObject>(), rectangleObject).listIterator();
         while(iterator.hasNext()){
-            RectangleObject rectangleObject = iterator.next();
-            if(GeometryUtil.rectangleObjectsOverlap(rectangleObject, searchRectangleObject)){
-                returnList.add(rectangleObject);
+            RectangleObject currentRectangleObject = iterator.next();
+            if(GeometryUtil.rectangleObjectsOverlap(currentRectangleObject, rectangleObject)){
+                returnList.add(currentRectangleObject);
             }
         }
         return returnList;
@@ -200,25 +200,25 @@ public class QuadTree {
         }
     }
 
-    private List<RectangleObject> search(List<RectangleObject> rectangleObjects, SearchRectangleObject searchRectangleObject){
+    private List<RectangleObject> search(List<RectangleObject> rectangleObjects, RectangleObject rectangleObject){
 
         rectangleObjects.addAll(this.rectangleObjects);
 
-        int index = getChildIndexRectangleBelongsIn(searchRectangleObject);
+        int index = getChildIndexRectangleBelongsIn(rectangleObject);
         //if the search area does not fit into any of the children perfectly
         if(index == QuadTree.THIS_QUADTREE || this.children[0] == null){
             //add anything that is on this QuadTree, may need to recurse down and add more
             if(this.children[0] != null){
                 //for each of the children, if the search area overlaps with the child area, search the child
                 for(int i = 0; i < this.children.length; i++){
-                    if(GeometryUtil.rectangleObjectsOverlap(new SearchRectangleObject(Double.valueOf(this.children[i].getX()), Double.valueOf(this.children[i].getY()),Double.valueOf(this.children[i].getW()), Double.valueOf(this.children[i].getH())), searchRectangleObject)){
-                        this.children[i].search(rectangleObjects, searchRectangleObject);
+                    if(GeometryUtil.rectangleObjectsOverlap(new SearchRectangleObject(Double.valueOf(this.children[i].getX()), Double.valueOf(this.children[i].getY()),Double.valueOf(this.children[i].getW()), Double.valueOf(this.children[i].getH())), rectangleObject)){
+                        this.children[i].search(rectangleObjects, rectangleObject);
                     }
                 }
             }
         }else if(this.children[index] != null){
             //search area is in one of the children totally, but we still can't exclude the objects on this node, because that search area could include one
-            this.children[index].search(rectangleObjects, searchRectangleObject);
+            this.children[index].search(rectangleObjects, rectangleObject);
         }
         return rectangleObjects;
     }
