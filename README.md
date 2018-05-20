@@ -3,6 +3,42 @@ A quadtree written in Java. Supports insert, update, search, remove, and more! P
 
 Import as a Gradle project, and run the jar command to produce the .jar (or used the one checked in).
 
+## Create an implementation of the RectangleObject interface
+
+```java
+
+/**
+ *  Objects inserted into the QuadTree must implement this interface
+ */
+public interface RectangleObject {
+
+    public String getId();
+
+    public void setId(String id);
+
+    public String getType();
+
+    public void setType(String type);
+
+    public Double getX();
+
+    public void setX(Double x);
+
+    public Double getY();
+
+    public void setY(Double y);
+
+    public Double getH();
+
+    public void setH(Double h);
+
+    public Double getW();
+
+    public void setW(Double w);
+
+}
+```
+
 ## Creating the QuadTree and inserting items
 ```java
 
@@ -14,16 +50,19 @@ QuadTree quadTree = new QuadTree();
 
 /**
 * Insert some items that implement the RectangleObject interface.
-* For demonstration, the SearchRectangleObject implementation of the RectangleObject interface is used,
-* however you can easily implement the interface and insert your own objects.
+* For demonstration, I will pretend there is a MockRectangleObject implementation of the RectangleObject interface. We will
+* use this to demonstrate the QuadTree functions.
+* You can easily implement the interface and insert your own objects. 
+* For example, if you were making a game you would make an implementation for each of your game's objects that needed to be in 
+* the QuadTree. 
 */
 
-quadTree.insert(new SearchRectangleObject(5.0, 5.0, 10.0, 10.0));
-quadTree.insert(new SearchRectangleObject(25.0, 25.0, 10.0, 10.0));
-quadTree.insert(new SearchRectangleObject(5.0, 5.0, 12.0, 10.0));
-quadTree.insert(new SearchRectangleObject(25.0, 25.0, 10.0, 10.0));
-quadTree.insert(new SearchRectangleObject(5.0, 25.0, 20.0, 10.0));
-quadTree.insert(new SearchRectangleObject(25.0, 5.0, 10.0, 10.0));
+quadTree.insert(new MockRectangleObject(5.0, 5.0, 10.0, 10.0));
+quadTree.insert(new MockRectangleObject(25.0, 25.0, 10.0, 10.0));
+quadTree.insert(new MockRectangleObject(5.0, 5.0, 12.0, 10.0));
+quadTree.insert(new MockRectangleObject(25.0, 25.0, 10.0, 10.0));
+quadTree.insert(new MockRectangleObject(5.0, 25.0, 20.0, 10.0));
+quadTree.insert(new MockRectangleObject(25.0, 5.0, 10.0, 10.0));
 
 ```
 ## Querying the QuadTree
@@ -38,7 +77,7 @@ quadTree.insert(new SearchRectangleObject(25.0, 5.0, 10.0, 10.0));
 * The following quereis the 100 * 100 area with the top-left corner at x = 0, y = 0
 */
 
-List<RectangleObject> objects = quadTree.search(new SearchRectangleObject(0.0, 0.0, 100.0, 100.0));
+List<RectangleObject> objects = quadTree.search(new MockRectangleObject(0.0, 0.0, 100.0, 100.0));
 
 ```
 
@@ -49,7 +88,7 @@ List<RectangleObject> objects = quadTree.search(new SearchRectangleObject(0.0, 0
 * In order for an items position in the QuadTree to be updated, it must be given an Id when it is inserted.
 */
 
-quadTree.insert(new SearchRectangleObject(0.0, 0.0, 10.0, 10.0, "1"));
+quadTree.insert(new MockRectangleObject(0.0, 0.0, 10.0, 10.0, "1"));
 
 /**
 * Note that you need to provide the coordinates of a rectangle object to move it. If only an Id were
@@ -58,8 +97,8 @@ quadTree.insert(new SearchRectangleObject(0.0, 0.0, 10.0, 10.0, "1"));
 * Updating an object will only change the x, y, width, and height properties of that object.
 */
 
-quadTree.update(new SearchRectangleObject(0.0, 0.0, 10.0, 10.0, "1"), 
-      new SearchRectangleObject(5.0, 5.0, 10.0, 10.0));
+quadTree.update(new MockRectangleObject(0.0, 0.0, 10.0, 10.0, "1"), 
+      new MockRectangleObject(5.0, 5.0, 10.0, 10.0));
 
 ```
 ## Removing an item from the QuadTree
@@ -69,7 +108,7 @@ quadTree.update(new SearchRectangleObject(0.0, 0.0, 10.0, 10.0, "1"),
 * Returns the removed object from the QuadTree, note that this method does not currently cause any 
 * rebalancing of nodes. You must provide the coordinates of the objecct to remove, as well as the id.
 */
-RectangleObject object = quadTree.remove(new SearchRectangleObject(0.0, 0.0, 5.0, 5.0, "1"));
+RectangleObject object = quadTree.remove(new MockRectangleObject(0.0, 0.0, 5.0, 5.0, "1"));
 
 ```
 
