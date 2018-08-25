@@ -1,8 +1,8 @@
-package io.github.ryanp102694;
+package com.github.ryanp102694;
 
-import io.github.ryanp102694.geometry.RectangleObject;
-import io.github.ryanp102694.geometry.SearchRectangleObject;
-import io.github.ryanp102694.geometry.GeometryUtil;
+import com.github.ryanp102694.geometry.GeometryUtil;
+import com.github.ryanp102694.geometry.RectangleObject;
+import com.github.ryanp102694.geometry.SearchRectangleObject;
 
 import java.util.ArrayList;
 import java.util.List;

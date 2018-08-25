@@ -1,10 +1,10 @@
-package io.github.ryanp102694;
+package com.github.ryanp102694;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.ryanp102694.geometry.RectangleObject;
-import io.github.ryanp102694.geometry.SearchRectangleObject;
+import com.github.ryanp102694.geometry.RectangleObject;
+import com.github.ryanp102694.geometry.SearchRectangleObject;
 
 import java.io.IOException;
 import java.nio.file.Files;

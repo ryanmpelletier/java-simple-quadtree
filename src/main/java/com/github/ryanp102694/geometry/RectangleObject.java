@@ -1,4 +1,4 @@
-package io.github.ryanp102694.geometry;
+package com.github.ryanp102694.geometry;
 
 /**
  *  Objects inserted into the QuadTree must implement this interface

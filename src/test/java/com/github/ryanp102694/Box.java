@@ -1,11 +1,11 @@
-package io.github.ryanp102694;
+package com.github.ryanp102694;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.ryanp102694.geometry.GeometryUtil;
-import io.github.ryanp102694.geometry.RectangleObject;
-import io.github.ryanp102694.geometry.SearchRectangleObject;
+import com.github.ryanp102694.geometry.GeometryUtil;
+import com.github.ryanp102694.geometry.RectangleObject;
+import com.github.ryanp102694.geometry.SearchRectangleObject;
 
 /**
  * This class is a container to test the QuadTree against. It simply keeps a list of RectangleObjects,
