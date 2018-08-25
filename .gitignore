@@ -8,3 +8,4 @@ out
 .idea
 *.iml
 .idea
+gradle.properties
