@@ -12,7 +12,7 @@ This quadtree was designed to have a similar interface to the NodeJS library htt
   <version>1.0-RELEASE</version>
 </dependency>
 ```
-## Create an implementation of the RectangleObject interface
+## Objects in the QuadTree implement the RectangleObject interface
 
 ```java
 
