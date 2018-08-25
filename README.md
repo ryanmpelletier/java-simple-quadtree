@@ -3,8 +3,15 @@ A quadtree written in Java. Supports insert, update, search, remove, and more! P
 
 This quadtree was designed to have a similar interface to the NodeJS library https://www.npmjs.com/package/simple-quadtree
 
-Import as a Gradle project, and run the jar command to produce the .jar (or used the one checked in).
+## Download from Maven Central
 
+```xml
+<dependency>
+  <groupId>com.github.ryanp102694</groupId>
+  <artifactId>java-simple-quadtree</artifactId>
+  <version>1.0-RELEASE</version>
+</dependency>
+```
 ## Create an implementation of the RectangleObject interface
 
 ```java
