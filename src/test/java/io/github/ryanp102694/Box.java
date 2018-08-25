@@ -1,11 +1,11 @@
-package com.pelletier;
+package io.github.ryanp102694;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.pelletier.geometry.GeometryUtil;
-import com.pelletier.geometry.RectangleObject;
-import com.pelletier.geometry.SearchRectangleObject;
+import io.github.ryanp102694.geometry.GeometryUtil;
+import io.github.ryanp102694.geometry.RectangleObject;
+import io.github.ryanp102694.geometry.SearchRectangleObject;
 
 /**
  * This class is a container to test the QuadTree against. It simply keeps a list of RectangleObjects,

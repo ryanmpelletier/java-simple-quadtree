@@ -1,8 +1,5 @@
-package com.pelletier.geometry;
+package io.github.ryanp102694.geometry;
 
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SearchRectangleObject extends AbstractRectangleObject {
     public SearchRectangleObject(){

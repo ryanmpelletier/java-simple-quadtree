@@ -1,10 +1,10 @@
-package com.pelletier;
+package io.github.ryanp102694;
 
-import com.pelletier.geometry.RectangleObject;
+import io.github.ryanp102694.geometry.RectangleObject;
 
 import static org.junit.Assert.*;
 
-import com.pelletier.geometry.SearchRectangleObject;
+import io.github.ryanp102694.geometry.SearchRectangleObject;
 import org.junit.Before;
 import org.junit.Test;
 

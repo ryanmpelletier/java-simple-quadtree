@@ -1,4 +1,4 @@
-package com.pelletier.geometry;
+package io.github.ryanp102694.geometry;
 
 //TODO write GeometryUtil tests
 public class GeometryUtil {
