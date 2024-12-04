@@ -7,11 +7,11 @@ repositories {
 
 dependencies {
     // Use JUnit test framework
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 }
 
 task runPerformanceReport(type: JavaExec){
-	main = "com.pelletier.PerformanceReport"
+	mainClass = "com.pelletier.PerformanceReport"
 	classpath = sourceSets.main.runtimeClasspath + sourceSets.test.runtimeClasspath
          
 }
