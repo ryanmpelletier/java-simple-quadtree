@@ -153,7 +153,6 @@ public class QuadTreeTest {
         //another split occurs on this insert
         quadTree.insert(new SearchRectangleObject(26.0,0.0,1.0,1.0));
         assertEquals(Integer.valueOf(3), quadTree.getDepth());
-
     }
 
     @Test

@@ -6,8 +6,7 @@ import com.github.ryanp102694.geometry.SearchRectangleObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
-//TODO limit recursion
+import java.util.Stack;
 
 public class QuadTree {
 
@@ -160,25 +159,43 @@ public class QuadTree {
         }
     }
 
-    public List<RectangleObject> search(RectangleObject rectangleObject){
-
+    public List<RectangleObject> search(RectangleObject searchRectangle){
+        Stack<QuadTree> treeStack = new Stack<>();
         List<RectangleObject> returnList = new ArrayList<>();
         //here I will need to filter through these and only return the objects that are in the search area (even if they are partially in the search area)
-        ListIterator<RectangleObject> iterator = search(new ArrayList<RectangleObject>(), rectangleObject).listIterator();
-        while(iterator.hasNext()){
-            RectangleObject currentRectangleObject = iterator.next();
-            if(GeometryUtil.rectangleObjectsOverlap(currentRectangleObject, rectangleObject)){
-                returnList.add(currentRectangleObject);
-            }
+        treeStack.push(this);
+        while(!treeStack.isEmpty()){
+            QuadTree current = treeStack.pop();
+            for (RectangleObject rectangle : current.rectangleObjects)
+                if (GeometryUtil.rectangleObjectsOverlap(rectangle, searchRectangle))
+                    returnList.add(rectangle);
+            for (QuadTree child : current.children)
+                if (child != null)
+                    treeStack.push(child);
         }
         return returnList;
     }
 
     public Integer getDepth(){
-        return 1 + Math.max(
-                Math.max(this.children[QuadTree.NE_CHILD] == null ? 0 : this.children[QuadTree.NE_CHILD].getDepth(), this.children[QuadTree.NW_CHILD] == null ? 0 : this.children[QuadTree.NW_CHILD].getDepth()),
-                Math.max(this.children[QuadTree.SW_CHILD] == null ? 0 : this.children[QuadTree.SW_CHILD].getDepth(), this.children[QuadTree.SE_CHILD] == null ? 0 : this.children[QuadTree.SE_CHILD].getDepth())
-        );
+        int maxDepth = 0;
+        Stack<QuadTree> treeStack = new Stack<>(); // stack to keep track of the subtrees
+        Stack<Integer> depthStack = new Stack<>(); // stack to keep track of the depths
+        treeStack.push(this); // to get the depth of this tree, start with "this"
+        depthStack.push(1);
+        while (!treeStack.isEmpty()){
+            QuadTree current = treeStack.pop();
+            int currentDepth = depthStack.pop();
+
+            maxDepth = Math.max(maxDepth, currentDepth);
+
+            for (QuadTree child : current.children) { // traverse to all four quadrants
+                if (child != null) {
+                    treeStack.push(child);
+                    depthStack.push(currentDepth + 1);
+                }
+            }
+        }
+        return maxDepth;
     }
 
     public Integer getTotalObjects(){
@@ -189,15 +206,11 @@ public class QuadTree {
                 (this.children[QuadTree.SE_CHILD] == null ? 0 : this.children[QuadTree.SE_CHILD].getTotalObjects());
     }
 
-    //recursively remove this quadtree's children
     public void clear(){
-        this.rectangleObjects.clear();
-        for(int i = 0; i < children.length; i++){
-            if(children[i] != null){
-                children[i].clear();
-                children[i] = null;
-            }
-        }
+        rectangleObjects.clear();
+        for (QuadTree child : children)
+            child = null;
+        // Garbage collection will take care of unreferenced nodes
     }
 
     private List<RectangleObject> search(List<RectangleObject> rectangleObjects, RectangleObject rectangleObject){
